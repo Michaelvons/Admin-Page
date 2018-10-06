@@ -163,7 +163,7 @@
                                         <td>
                                             <div>
                                                 <button type="button" class="btn btn-outline-info btn-sm"><i class="fa fa-edit"></i></button>
-                                                <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletemodal"><i class="fa fa-trash"></i></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -223,6 +223,20 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <div class="h3 py-0 text-center">Are you Sure</div>
+        </div>
+        <div class="modal-footer mx-auto">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Yes</button>
+            <button type="button" class="btn btn-danger">No</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <!-- end delete Modal -->
 
 
     <!-- Footer -->
