@@ -123,13 +123,7 @@
             <!-- Page-Title -->
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="btn-group pull-right m-t-20">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productmodal">
-                            <i class="fa fa-plus"></i> Add Products
-                        </button>
-                    </div>
-                        <h4 class="page-title"><a href="order.html"><i class="fa fa-1x fa-arrow-left text-dark"></i></a>    Product</h4>
-
+                    <h4 class="page-title">Orders</h4>
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
@@ -163,9 +157,13 @@
                                         <td>Genesis</td>
                                         <td><span class="badge badge-info">Yes</span></td>
                                         <td>
-                                            <div>
-                                                <button type="button" class="btn btn-outline-info btn-sm"><i class="fa fa-edit"></i></button>
-                                                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletemodal"><i class="fa fa-trash"></i></button>
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#editmodal">
+                                                    <span class="fa fa-pencil" aria-hidden="true"></span>
+                                                </button> 
+                                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deletemodal">
+                                                    <span class="fa fa-trash" aria-hidden="true"></span>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -244,17 +242,83 @@
     <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-        <div class="modal-body">
-            <div class="h3 py-0 text-center">Are you Sure</div>
-        </div>
-        <div class="modal-footer mx-auto">
-            <button type="button" class="btn btn-success" data-dismiss="modal">Yes</button>
-            <button type="button" class="btn btn-danger">No</button>
-        </div>
+        <form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Delete Product</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					</div>
+					<div class="modal-body">					
+						<p>Are you sure you want to delete these Records?</p>
+						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-danger" value="Delete">
+					</div>
+				</form>
         </div>
     </div>
     </div>
     <!-- end delete Modal -->
+
+     <!--Table edit modal-->
+    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="editor-title">Edit Products</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group required">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="producttitle">Title</label>
+                                <input type="name" class="form-control" id="producttitle" placeholder="Product Title">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="productprice">Price</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">₦</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="productprice" placeholder="Product Price">
+                                    </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="marchantname">Marchant Name</label>
+                                <select id="marchantname" class="form-control">
+                                    <option selected>Choose...</option>
+                                    <option>Samuel</option>
+                                    <option>Bose</option>
+                                    <option>Musa</option>
+                                    <option>Sodiq</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="productPickupstatus">	Pickup Availability: </label>
+                                <div class="custom-control custom-radio custom-control-inline ">
+                                    <input type="radio" id="customRadioInline0" name="customRadio" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadioInline0">Available</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline custom-radio-danger">
+                                    <input type="radio" id="customRadioInline0-1" name="customRadio" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadioInline0-1">Not Available</label>
+                                </div>
+                                <div class="custom-file col-md-12">
+                                    <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                                    <label class="custom-file-label" for="validatedCustomFile">Upload Product Image...</label>
+                                </div>
+                            </div>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-edit"></i> Done
+                             </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Footer -->

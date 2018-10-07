@@ -4,7 +4,7 @@ $(document).ready(function() {
   var counter = 1;
 
 
-   $("#addproduct").on("click", function() {
+   $("").on("click", function() {
      t.row
        .add([
          counter + ".1",
@@ -19,5 +19,5 @@ $(document).ready(function() {
    });
 
    // Automatically add a first row of data
-   $("#addproduct").click();
+   $("").click();
 });

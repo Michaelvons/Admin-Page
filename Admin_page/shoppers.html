@@ -28,7 +28,7 @@
 
 <body>
 
-     <!-- Navigation Bar-->
+    <!-- Navigation Bar-->
         <header id="topnav">
             <div class="topbar-main">
                 <div class="container-fluid">
@@ -36,9 +36,7 @@
                     <!-- Logo container-->
                     <div class="logo">
                         <!-- Image Logo -->
-                        <a href="index.html" class="logo">
-                            <img src="assets/images/logo-sm.png" alt="" height="26" class="logo-small">
-                            <img src="assets/images/logo.png" alt="" height="24" class="logo-large">
+                        <a href="index.html" class="logo">VENDEE DASHBOARD
                         </a>
 
                     </div>
@@ -162,11 +160,11 @@
                                         <td>090222222</td>
                                         <td>-</td>
                                         <td>1t2t3y</td>
-                                        <td>5</td>
+                                        <td>5</td>                               
                                         <td>
                                             <div>
-                                                <button type="button" class="btn btn-outline-info btn-sm"><i class="fa fa-edit"></i></button>
-                                                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deletemodal"><i class="fa fa-trash"></i></button>
+                                                <button type="button" class="btn btn-outline-info btn-sm"  data-toggle="modal" data-target="#editmodal"><i class="fa fa-edit"></i></button>
+                                                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#clearmodal"><i class="fa fa-trash"></i></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -183,7 +181,7 @@
     </div>
     <!-- end wrapper -->
 
-    <!-- Modal -->
+    <!-- Modal addition-->
     <div class="modal fade" id="shoppersmodal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -233,20 +231,138 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog">
+    <!-- end Modal addition-->
+
+    
+    <!-- delete Modal for table-->
+    <div class="modal fade" id="clearmodal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-        <div class="modal-body">
-            <div class="h3 py-0 text-center">Are you Sure</div>
-        </div>
-        <div class="modal-footer mx-auto">
-            <button type="button" class="btn btn-success" data-dismiss="modal">Yes</button>
-            <button type="button" class="btn btn-danger">No</button>
-        </div>
+        <form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Delete Order</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					</div>
+					<div class="modal-body">					
+						<p>Are you sure you want to delete these Records?</p>
+						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-danger" value="Delete">
+					</div>
+				</form>
         </div>
     </div>
     </div>
     <!-- end delete Modal -->
+
+    <!-- Table edit Modal -->
+    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLongTitle">Add Shoppers</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="shopperfn">Emmanuel</label>
+                                <input type="name" class="form-control" id="shopperfn" placeholder="Enter First Name">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="shopperln">Ikem</label>
+                                <input type="name" class="form-control" id="shopperln" placeholder="Enter Last Name">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="shopperphone">08138850957</label>
+                                <input type="name" class="form-control" id="shopperphone" placeholder="Enter Phone Number">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="company">Company</label>
+                                <select id="company" class="form-control">
+                                    <option selected>Choose...</option>
+                                    <option>Shoprite</option>
+                                    <option>Hubmart</option>
+                                    <option>Jumia</option>
+                                    <option>Konga</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="shopper_reference">Reference Number</label>
+                                <input type="text" class="form-control" id="shopper_reference" placeholder="Enter Reference Number">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="totalshopping">Total Shopping</label>
+                                <input type="number" class="form-control" id="totalshopping" placeholder="Enter Total shopping">
+                            </div>
+                        <button type="button" class="btn btn-success" id="addshoppers"><i class="fa fa-plus"></i> Add
+                             </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Table edit Modal end-->
+
+     <!--Table edit modal-->
+    <div class="modal fade" id="editor-modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="editor-title">Edit Staffs</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group required">
+                        <div class="form-group col-md-12">
+                                <label for="staff_fn">First Name</label>
+                                <input type="name" class="form-control" id="staff_fn" name="staff_fn" placeholder="Enter First Name">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="staff_ln">Last Name</label>
+                                <input type="name" class="form-control" id="staff_ln" name="staff_fn" placeholder="Enter Last Name">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="staff_joined_date">Date joined</label>
+                                <input type="date" class="form-control" id="staff_joined_date" name="staff_fn" placeholder="Enter Date Joined">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="Staff_status">	Is Admin: </label>
+                                <div class="custom-control custom-radio custom-control-inline ">
+                                    <input type="radio" id="radioyes" name="radioyes" class="custom-control-input">
+                                    <label class="custom-control-label" for="radioyes">Yes</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline custom-radio-danger">
+                                    <input type="radio" id="radiono" name="radiono" class="custom-control-input">
+                                    <label class="custom-control-label" for="radiono">No</label>
+                                </div>
+                            </div>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-edit"></i> Done
+                             </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    2016 - 2018 © Adminto. Coderthemes.com
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
 
 
 
