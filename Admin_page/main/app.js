@@ -7,6 +7,7 @@ var app = {
     app.API = project.API;
     app.alert = project.alert;
     app.debug = project.debug;
+    app.ImageUrl = "https://api.yourvendee.com/upload";
 
     app.launch();
   },

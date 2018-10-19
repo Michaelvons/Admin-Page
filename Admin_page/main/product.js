@@ -9,8 +9,7 @@ var product = {
     axios
       .get(app.API + "api/products", {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmJkZDU1Y2U5NDQzZDYwMDk4MjlhMmEiLCJpYXQiOjE1MzkxNzAxOTksImV4cCI6MTU3MDcwNjE5OX0.uA7Q_oItU57M4-Xcbd4v2RGLKAF9w-pDXvzWLW-VWPY"
+          Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
       .then(function(response) {
@@ -26,10 +25,12 @@ var product = {
         response.data.data.forEach((event, index) => {
           list += `  <tr>
             <td>${index + 1}</td>
-            <td>${event.categoryID.categoryName}</td>
+            <td>${
+              event.categoryID ? event.categoryID.categoryName : "null"
+            }</td>
             <td>${event.productName}</td>
             <td>${event.price}</td>
-            <td>${event.merchantID.name}</td>
+            <td>${event.merchantID ? event.merchantID.name : "null"}</td>
             <td><span class="badge ${
               event.isPickupAvailable ? "badge-info" : "badge-danger"
             }">${event.isPickupAvailable}</span></td>
@@ -135,15 +136,14 @@ var product = {
       `;
     let imageFile = `
       <div class="custom-file col-md-12">
-              <input type="file" class="custom-file-input" id="file" onchange='events.preview_image(event)' required>
+              <input type="file" class="custom-file-input" id="file" onchange='product.preview_image(event)' required>
               <label class="custom-file-label" for="file">Upload Product
                   Image...</label>
           </div>
       `;
     let imageview = `
-      <img id='outputimage' style='width:250px;height:200px;margin-bottom:15px' accept="image/*" src=${
-        events.selected.thumbnail
-      } />
+      <img id='outputimage' style='width:250px;height:200px;margin-bottom:15px' accept="image/*" src=${"https://api.yourvendee.com/upload" +
+        events.selected.thumbnail} />
   
       `;
 
@@ -216,8 +216,7 @@ var product = {
     axios
       .put(app.API + `api/products/${events.selectedid}`, formData, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmJkZDU1Y2U5NDQzZDYwMDk4MjlhMmEiLCJpYXQiOjE1MzkxNzAxOTksImV4cCI6MTU3MDcwNjE5OX0.uA7Q_oItU57M4-Xcbd4v2RGLKAF9w-pDXvzWLW-VWPY",
+          Authorization: "Bearer " + localStorage.getItem("vendeeToken"),
           "Content-Type": "multipart/form-data"
         }
       })
@@ -274,8 +273,7 @@ var product = {
     axios
       .post(app.API + `api/products`, formData, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmJkZDU1Y2U5NDQzZDYwMDk4MjlhMmEiLCJpYXQiOjE1MzkxNzAxOTksImV4cCI6MTU3MDcwNjE5OX0.uA7Q_oItU57M4-Xcbd4v2RGLKAF9w-pDXvzWLW-VWPY",
+          Authorization: "Bearer " + localStorage.getItem("vendeeToken"),
           "Content-Type": "multipart/form-data"
         }
       })
@@ -314,8 +312,7 @@ var product = {
     axios
       .delete(app.API + `api/products/${events.selectedid}`, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmJkZDU1Y2U5NDQzZDYwMDk4MjlhMmEiLCJpYXQiOjE1MzkxNzAxOTksImV4cCI6MTU3MDcwNjE5OX0.uA7Q_oItU57M4-Xcbd4v2RGLKAF9w-pDXvzWLW-VWPY"
+          Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
       .then(function(response) {

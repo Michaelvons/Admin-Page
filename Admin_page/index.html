@@ -96,7 +96,7 @@
         </div>
         <!-- end topbar-main -->
 
-        <div class="navbar-custom">
+        <div id='navbar-custom' class="navbar-custom">
             <div class="container-fluid m-auto">
                 <div id="navigation">
                     <!-- Navigation Menu-->
@@ -128,6 +128,9 @@
                         <li class="has-submenu" onclick="category.loadCategory()">
                             <a><i class="fa fa-archive"></i> <span> Category </span> </a>
                         </li>
+                        <li class="has-submenu pull-right" onclick="project.doLogout()">
+                            <a><i class="fa fa-sign-out"></i> <span> Logout </span> </a>
+                        </li>
                     </ul>
                     <!-- End navigation menu -->
                 </div> <!-- end #navigation -->
@@ -137,6 +140,57 @@
     <!-- End Navigation Bar-->
     <div class="wrapper">
         <div id="UIViews" class="container-fluid">
+            <div></div>
+            <div id="loginUiView" class="wrapper-page">
+                <div class="text-center">
+                    <a href="#" class="logo"><span>Vendee</span></a>
+                    <h5 class="text-muted mt-0 font-600">Admin Dashboard</h5>
+                </div>
+                <div class="m-t-40 card-box">
+                    <div class="text-center">
+                        <h4 class="text-uppercase font-bold mb-0">Sign In</h4>
+                    </div>
+                    <div class="p-20">
+                        <div class="form-horizontal m-t-20" action="index.html">
+
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <input id='staffemail' class="form-control" type="text" required="" placeholder="Email">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <input id='staffpassword' class="form-control" type="password" required=""
+                                        placeholder="Password">
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
+                                <div class="col-xs-12">
+                                    <div class="checkbox checkbox-custom">
+                                        <input id="checkbox-signup" type="checkbox">
+                                        <label for="checkbox-signup">
+                                            Remember me
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group text-center m-t-30">
+                                <div class="col-xs-12">
+                                    <button onclick="project.doLogin()" class="btn btn-custom btn-bordred btn-block waves-effect waves-light"
+                                        type="submit">Log
+                                        In</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
             <div id="merchantUIView" class="view">
                 <div class="row">
                     <div class="col-sm-12">
@@ -209,7 +263,7 @@
                                         <tr>
                                             <th>SN</th>
                                             <th>Company Name</th>
-                                            <th>Company Address</th>
+                                            <th>Created By</th>
                                             <td>Action</td>
                                         </tr>
                                     </thead>
@@ -636,6 +690,7 @@
         <script src="assets/js/demo/datatables-demo.js"></script>-->
         <!--custom views -->
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBNdl87TEwJIbjpyGENr3FNMo1Pa_sXgEg"></script>
         <script src="main/project.js"></script>
         <script src="main/product.js"></script>
         <script src="main/events.js"></script>

@@ -6,8 +6,7 @@ var merchant = {
     axios
       .get(app.API + "api/merchants", {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmJkZDU1Y2U5NDQzZDYwMDk4MjlhMmEiLCJpYXQiOjE1MzkxNzAxOTksImV4cCI6MTU3MDcwNjE5OX0.uA7Q_oItU57M4-Xcbd4v2RGLKAF9w-pDXvzWLW-VWPY"
+          Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
       .then(function(response) {
@@ -81,14 +80,12 @@ var merchant = {
     views.element("merchantFormCity").innerHTML = merchantCity;
     views.element("merchantFormAddress").innerHTML = merchantAddress;
   },
-  editMerchant: function() {
-    project.removeError();
-    project.showSmallBusy();
+  editMerchantInfo: function(latitude, longitude) {
     var editData = {
       name: views.element("merchantname").value,
       location: {
         address: views.element("merchantaddress").value,
-        coordinates: [-90, 10],
+        coordinates: [longitude, latitude],
         type: "Point"
       },
       city: views.element("merchantcity").value,
@@ -99,8 +96,7 @@ var merchant = {
     axios
       .put(app.API + `api/merchants/${events.selectedid}`, editData, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmJkZDU1Y2U5NDQzZDYwMDk4MjlhMmEiLCJpYXQiOjE1MzkxNzAxOTksImV4cCI6MTU3MDcwNjE5OX0.uA7Q_oItU57M4-Xcbd4v2RGLKAF9w-pDXvzWLW-VWPY"
+          Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
       .then(function(response) {
@@ -115,23 +111,18 @@ var merchant = {
         console.log(error);
       });
   },
-  createMerchant: function() {
-    $("#merchantmodal").modal("show");
+  submitMerchantInfo: function(latitude, longitude) {
+    // $("#merchantmodal").modal("show");
     var name = views.element("merchantcreateformName").value;
     var address = views.element("merchantcreateformAddress").value;
     var city = views.element("merchantcreateformCity").value;
     var state = views.element("merchantcreateformState").value;
-    if (!name || !address || !city || !state) {
-      alert("Please fill all the fields");
-      return;
-    }
-    project.removeError();
-    project.showSmallBusy();
+
     var createData = {
       name: name,
       "location.address": address,
-      "location.coordinates.0": -90,
-      "location.coordinates.1": 10,
+      "location.coordinates.0": longitude,
+      "location.coordinates.1": latitude,
       //location: {
       //address: views.element("merchantcreateformAddress").value
       //coordinates: [-90, 10],
@@ -145,8 +136,7 @@ var merchant = {
     axios
       .post(app.API + `api/merchants`, createData, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmJkZDU1Y2U5NDQzZDYwMDk4MjlhMmEiLCJpYXQiOjE1MzkxNzAxOTksImV4cCI6MTU3MDcwNjE5OX0.uA7Q_oItU57M4-Xcbd4v2RGLKAF9w-pDXvzWLW-VWPY"
+          Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
       .then(function(response) {
@@ -172,8 +162,7 @@ var merchant = {
     axios
       .delete(app.API + `api/merchants/${events.selectedid}`, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmJkZDU1Y2U5NDQzZDYwMDk4MjlhMmEiLCJpYXQiOjE1MzkxNzAxOTksImV4cCI6MTU3MDcwNjE5OX0.uA7Q_oItU57M4-Xcbd4v2RGLKAF9w-pDXvzWLW-VWPY"
+          Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
       .then(function(response) {
@@ -194,5 +183,65 @@ var merchant = {
     });
     //views.setURL("/category.html");
     //goto,impose,overlay,flash
+  },
+  createMerchant: function() {
+    var name = views.element("merchantcreateformName").value;
+    var address = views.element("merchantcreateformAddress").value;
+    var city = views.element("merchantcreateformCity").value;
+    var state = views.element("merchantcreateformState").value;
+    if (!name || !address || !city || !state) {
+      alert("Please Fill All Fields");
+      return;
+    }
+    project.removeError();
+    project.showSmallBusy();
+
+    var arr = [];
+    arr.push(address, city, state);
+    var geoaddress = arr.join(".");
+    console.log(geoaddress);
+
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: geoaddress }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var latitude = results[0].geometry.location.lat();
+        var longitude = results[0].geometry.location.lng();
+        console.log(latitude, longitude);
+        merchant.submitMerchantInfo(latitude, longitude);
+      } else {
+        project.hideSmallBusy();
+        alert(
+          "An error occured. Ensure you entered your correct Adrress Details"
+        );
+      }
+    });
+  },
+  editMerchant: function() {
+    project.removeError();
+    project.showSmallBusy();
+
+    var address = views.element("merchantaddress").value;
+    var city = views.element("merchantcity").value;
+    var state = views.element("merchantstate").value;
+
+    var arr = [];
+    arr.push(address, city, state);
+    var geoaddress = arr.join(".");
+    console.log(geoaddress);
+
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: geoaddress }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var latitude = results[0].geometry.location.lat();
+        var longitude = results[0].geometry.location.lng();
+        console.log(latitude, longitude);
+        merchant.editMerchantInfo(latitude, longitude);
+      } else {
+        project.hideSmallBusy();
+        alert(
+          "An error occured. Ensure you entered your correct Adrress Details"
+        );
+      }
+    });
   }
 };

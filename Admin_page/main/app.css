@@ -24,6 +24,9 @@
 #busyUIElement.active {
   display: block;
 }
+.hidden {
+  display: none;
+}
 #busyUIElement.inactive {
   display: none;
 }
@@ -651,8 +654,8 @@ img.xLogo.center {
   margin: auto;
   z-index: 100000;
   position: absolute;
-  left: 44%;
-  top: 5%;
+  left: 40%;
+  top: 13%;
   text-align: center;
 }
 .inactiverr {

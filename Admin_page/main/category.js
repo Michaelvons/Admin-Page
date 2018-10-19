@@ -4,8 +4,7 @@ var category = {
     axios
       .get(app.API + "api/category", {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmJkZDU1Y2U5NDQzZDYwMDk4MjlhMmEiLCJpYXQiOjE1MzkxNzAxOTksImV4cCI6MTU3MDcwNjE5OX0.uA7Q_oItU57M4-Xcbd4v2RGLKAF9w-pDXvzWLW-VWPY"
+          Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
       .then(function(response) {
@@ -70,8 +69,7 @@ var category = {
     axios
       .put(app.API + `api/category/${events.selectedid}`, editData, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmJkZDU1Y2U5NDQzZDYwMDk4MjlhMmEiLCJpYXQiOjE1MzkxNzAxOTksImV4cCI6MTU3MDcwNjE5OX0.uA7Q_oItU57M4-Xcbd4v2RGLKAF9w-pDXvzWLW-VWPY"
+          Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
       .then(function(response) {
@@ -101,8 +99,7 @@ var category = {
     axios
       .post(app.API + `api/category`, createData, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmJkZDU1Y2U5NDQzZDYwMDk4MjlhMmEiLCJpYXQiOjE1MzkxNzAxOTksImV4cCI6MTU3MDcwNjE5OX0.uA7Q_oItU57M4-Xcbd4v2RGLKAF9w-pDXvzWLW-VWPY"
+          Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
       .then(function(response) {
@@ -128,8 +125,7 @@ var category = {
     axios
       .delete(app.API + `api/category/${events.selectedid}`, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmJkZDU1Y2U5NDQzZDYwMDk4MjlhMmEiLCJpYXQiOjE1MzkxNzAxOTksImV4cCI6MTU3MDcwNjE5OX0.uA7Q_oItU57M4-Xcbd4v2RGLKAF9w-pDXvzWLW-VWPY"
+          Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
       .then(function(response) {
@@ -155,8 +151,7 @@ var category = {
     axios
       .get(app.API + "api/category", {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmJkZDU1Y2U5NDQzZDYwMDk4MjlhMmEiLCJpYXQiOjE1MzkxNzAxOTksImV4cCI6MTU3MDcwNjE5OX0.uA7Q_oItU57M4-Xcbd4v2RGLKAF9w-pDXvzWLW-VWPY"
+          Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
       .then(function(response) {

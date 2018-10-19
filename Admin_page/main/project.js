@@ -5,13 +5,46 @@ var project = {
 
   start: function() {
     console.log("started");
-    try {
+    /*try {
       admin.start();
     } catch (e) {
       views.start("merchantUIView", merchant.fetchMerchant());
+    }*/
+    if (localStorage.vendeeToken) {
+      views.start("merchantUIView", merchant.fetchMerchant());
+      views.element("navbar-custom").className = " ";
+    } else {
+      views.start("loginUiView");
+      views.element("navbar-custom").className = "hidden";
     }
   },
+  doLogin: function() {
+    var u = views.element("staffemail").value;
+    var p = views.element("staffpassword").value;
 
+    if (!u || !p) return alert("Please enter an email and password to login.");
+    project.showSmallBusy();
+    project.removeError();
+    axios
+      .post(app.API + `api/staff/login`, { email: u, oauth: p })
+      .then(function(response) {
+        localStorage.setItem("vendeeToken", response.data.data.token);
+        project.hideSmallBusy();
+        views.start("merchantUIView", merchant.fetchMerchant());
+        views.element("navbar-custom").className = " ";
+      })
+      .catch(function(error) {
+        project.hideSmallBusy();
+        project.showError(error.response.data.message);
+        console.log(error);
+      });
+  },
+  doLogout: function() {
+    views.impose("loginUiView", function() {
+      localStorage.removeItem("vendeeToken");
+      views.element("navbar-custom").className = "hidden";
+    });
+  },
   alert: function(message, caption) {
     views.flash("alertUIView", function() {
       views.element("alertUIMessage").innerHTML = message;
