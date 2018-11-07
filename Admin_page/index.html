@@ -122,9 +122,9 @@
                         <li class="has-submenu" onclick="driver.loadDrivers()">
                             <a><i class="fa fa-users"></i> <span> Drivers </span> </a>
                         </li>
-                        <!---<li class="has-submenu">
+                        <li class="has-submenu" onclick="staff.loadStaffs()">
                             <a><i class="fa fa-users"></i> <span> Staffs </span> </a>
-                        </li>-->
+                        </li>
                         <li class="has-submenu" onclick="category.loadCategory()">
                             <a><i class="fa fa-archive"></i> <span> Category </span> </a>
                         </li>
@@ -268,6 +268,48 @@
                                         </tr>
                                     </thead>
                                     <tbody id='categoryTable'>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                </div>
+            </div>
+            <div id="staffUIView" class="container-fluid">
+                <!-- Page-Title -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="btn-group pull-right m-t-20">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staffmodal">
+                                <i class="fa fa-plus"></i> Add Staffs
+                            </button>
+                        </div>
+                        <h4 class="page-title">Staffs</h4>
+                    </div>
+                </div>
+                <!-- end page title end breadcrumb -->
+
+
+                <div class="row">
+                    <div class="col-12 mx-auto">
+                        <div class="card-box">
+
+                            <h4 class="header-title mt-0 m-b-30">Staff List</h4>
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>SN</th>
+                                            <th>Staff Name</th>
+                                            <th>Is Admin</th>
+                                            <td>Email</td>
+                                            <td>Action</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id='staffTable'>
 
                                     </tbody>
                                 </table>
@@ -1077,6 +1119,96 @@
             </div>
         </div>
         <!--Product modal ends here-->
+        <!--Staff Modal starts here-->
+
+        <div class="modal fade" id="staffmodal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title h2" id="exampleModalLongTitle">Add Staffs</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="staffname">Name</label>
+                                    <input type="name" class="form-control" id="staffname" placeholder="Staff Name">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="staffemail">Email</label>
+                                    <input type="email" class="form-control" id="staffemail" placeholder="Staff Email">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="staffpassword">Password</label>
+                                    <input type="name" class="form-control" id="staffpassword" placeholder="Staff Password">
+                                </div>
+                            </div>
+                            <button onclick="staff.createStaff()" type="submit" class="btn btn-success">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="deletestaffmodal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div>
+                        <div class="modal-header">
+                            <h4 class="modal-title">Delete Staff</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete these Records?</p>
+                            <p class="text-warning"><small>This action cannot be undone.</small></p>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                            <input onclick="staff.deleteStaff()" type="submit" class="btn btn-danger" value="Delete">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editstaffmodal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="editor-title">Edit Staffs</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group required">
+                            <div class="form-row">
+                                <div id='staffEditName' class="form-group col-md-12">
+
+                                </div>
+                                <div id='staffEditEmail' class="form-group col-md-12">
+
+                                </div>
+                                <div id='staffEditIsAdmin' class="form-group col-md-12">
+
+                                </div>
+                                <div id='staffEditPassword' class="form-group col-md-12">
+
+                                </div>
+
+                            </div>
+                            <button onclick="staff.editStaff()" type="submit" class="btn btn-success"><i class="fa fa-edit"></i>
+                                Done
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Staff modal ends here-->
         <!-- Footer -->
         <footer class="footer">
             <div class="container">
@@ -1135,6 +1267,7 @@
         <script src="main/courier.js"></script>
         <script src="main/merchant.js"></script>
         <script src="main/shopper.js"></script>
+        <script src="main/staff.js"></script>
         <script src="main/order.js"></script>
         <script src="main/driver.js"></script>
         <script src="views/gsap/css.js"></script>

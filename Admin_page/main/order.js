@@ -28,7 +28,6 @@ var order = {
               _id: response.data.data[value]._id,
               productDetails: param,
               customerID: response.data.data[value].customerID,
-              quant: response.data.data[value].quantity,
               shopperReferenceNumber:
                 response.data.data[value].shopperReferenceNumber,
               status: response.data.data[value].status,
@@ -44,7 +43,7 @@ var order = {
           list += `<tr>
             <td>${index + 1}</td>
             <td>${movie.productDetails.productName}</td>
-            <td>${1}</td>
+            <td>${movie.productDetails.quantity}</td>
             <td>${movie.shopperReferenceNumber}</td>
             <td>${movie.customerID.firstname +
               " " +
