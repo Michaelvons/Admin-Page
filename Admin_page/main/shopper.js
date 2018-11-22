@@ -1,12 +1,12 @@
 var shopper = {
-  loadShoppers: function() {
-    views.impose("shopperUIView", function() {
+  loadShoppers: function () {
+    views.impose("shopperUIView", function () {
       shopper.fetchShoppers();
     });
     //views.setURL("/category.html");
     //goto,impose,overlay,flash
   },
-  fetchShoppers: function() {
+  fetchShoppers: function () {
     project.showBusy();
     axios
       .get(app.API + "api/shoppers", {
@@ -14,8 +14,7 @@ var shopper = {
           Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
-      .then(function(response) {
-        console.log(response);
+      .then(function (response) {
         project.hideBusy();
         if (response.status !== 200) return app.alert(response.status);
 
@@ -25,6 +24,7 @@ var shopper = {
         response.data.data.forEach((event, index) => {
           list += `<tr>
             <td>${index + 1}</td>
+            <td>${event.referenceNumber}</td>
             <td>${event.firstname}</td>
             <td>${event.lastname}</td>
             <td>${event.phoneNumber}</td>
@@ -45,11 +45,10 @@ var shopper = {
         });
         views.element("shopperTable").innerHTML = list;
       })
-      .catch(function(error) {
-        console.log(error);
+      .catch(function (error) {
       });
   },
-  shopperDetails: function(target) {
+  shopperDetails: function (target) {
     $("#editshoppermodal").modal("show");
     var id = target.getAttribute("data-id");
     events.selectedid = id;
@@ -62,26 +61,26 @@ var shopper = {
     let firstName = `
         <label for="editshopperfirstName">First Name</label>
         <input type="name" class="form-control" id="editshopperfirstName" value='${
-          events.selected.firstname
-        }'>
+      events.selected.firstname
+      }'>
     `;
     let lastName = `
     <label for="editshopperlastName">Last Name</label>
     <input type="name" class="form-control" id="editshopperlastName" value='${
       events.selected.lastname
-    }'>
+      }'>
 `;
     let phone = `
 <label for="editshopperphone">Phone Number</label>
 <input type="tel" class="form-control" id="editshopperphone" value='${
       events.selected.phoneNumber
-    }'>
+      }'>
 `;
     let company = `
 <label for="editshoppercompany">Company Name</label>
 <input type="tel" class="form-control" id="editshoppercompany" value='${
       events.selected.company
-    }'>
+      }'>
 `;
 
     views.element("shopperEditfirstName").innerHTML = firstName;
@@ -89,7 +88,7 @@ var shopper = {
     views.element("shopperEditphoneNumber").innerHTML = phone;
     views.element("shopperEditcompanyName").innerHTML = company;
   },
-  editShopper: function() {
+  editShopper: function () {
     project.removeError();
     project.showSmallBusy();
     var editData = {
@@ -99,26 +98,23 @@ var shopper = {
       company: views.element("editshoppercompany").value,
       referenceNumber: events.selected.referenceNumber
     };
-    console.log(events.selectedid);
     axios
       .put(app.API + `api/shoppers/${events.selectedid}`, editData, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
-      .then(function(response) {
+      .then(function (response) {
         project.hideSmallBusy();
-        console.log(response);
         $("#editshoppermodal").modal("hide");
         shopper.fetchShoppers();
       })
-      .catch(function(error) {
+      .catch(function (error) {
         project.hideSmallBusy();
         project.showError(error.response.data.message);
-        console.log(error);
       });
   },
-  createShopper: function() {
+  createShopper: function () {
     $("#shoppermodal").modal("show");
     var fname = views.element("shopperfirstName").value;
     var lname = views.element("shopperlastName").value;
@@ -147,25 +143,22 @@ var shopper = {
           Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
-      .then(function(response) {
+      .then(function (response) {
         project.hideSmallBusy();
-        console.log(response);
         $("#shoppermodal").modal("hide");
         shopper.fetchShoppers();
       })
-      .catch(function(error) {
+      .catch(function (error) {
         project.hideSmallBusy();
         project.showError(error.response.data.message);
-        console.log(error);
       });
   },
-  showshopperdeleteModal: function(target) {
+  showshopperdeleteModal: function (target) {
     $("#deleteshoppermodal").modal("show");
     var id = target.getAttribute("data-id");
-    console.log(id);
     events.selectedid = id;
   },
-  deleteShopper: function() {
+  deleteShopper: function () {
     project.showSmallBusy();
     axios
       .delete(app.API + `api/shoppers/${events.selectedid}`, {
@@ -173,16 +166,14 @@ var shopper = {
           Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
-      .then(function(response) {
+      .then(function (response) {
         project.hideSmallBusy();
-        console.log(response);
         $("#deleteshoppermodal").modal("hide");
         shopper.fetchShoppers();
       })
-      .catch(function(error) {
+      .catch(function (error) {
         project.hideSmallBusy();
         project.showError(error.response.data.message);
-        console.log(error);
       });
   }
 };

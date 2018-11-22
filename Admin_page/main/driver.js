@@ -1,12 +1,12 @@
 var driver = {
-  loadDrivers: function() {
-    views.impose("driverUIView", function() {
+  loadDrivers: function () {
+    views.impose("driverUIView", function () {
       driver.fetchDrivers();
     });
     //views.setURL("/category.html");
     //goto,impose,overlay,flash
   },
-  fetchDrivers: function() {
+  fetchDrivers: function () {
     project.showBusy();
     axios
       .get(app.API + "api/drivers", {
@@ -14,8 +14,8 @@ var driver = {
           Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
-      .then(function(response) {
-        console.log(response);
+      .then(function (response) {
+
         project.hideBusy();
         if (response.status !== 200) return app.alert(response.status);
 
@@ -25,6 +25,7 @@ var driver = {
         response.data.data.forEach((event, index) => {
           list += `<tr>
             <td>${index + 1}</td>
+            <td>${event.referenceNumber}</td>
             <td>${event.firstname}</td>
             <td>${event.lastname}</td>
             <td>${event.phoneNumber}</td>
@@ -44,11 +45,11 @@ var driver = {
         });
         views.element("driverTable").innerHTML = list;
       })
-      .catch(function(error) {
-        console.log(error);
+      .catch(function (error) {
+
       });
   },
-  driverDetails: function(target) {
+  driverDetails: function (target) {
     $("#editdrivermodal").modal("show");
     var id = target.getAttribute("data-id");
     events.selectedid = id;
@@ -61,27 +62,27 @@ var driver = {
     let firstName = `
         <label for="editdriverfirstName">First Name</label>
         <input type="name" class="form-control" id="editdriverfirstName" value='${
-          events.selected.firstname
-        }'>
+      events.selected.firstname
+      }'>
     `;
     let lastName = `
     <label for="editdriverlastName">Last Name</label>
     <input type="name" class="form-control" id="editdriverlastName" value='${
       events.selected.lastname
-    }'>
+      }'>
 `;
     let phone = `
 <label for="editdriverphone">Phone Number</label>
 <input type="tel" class="form-control" id="editdriverphone" value='${
       events.selected.phoneNumber
-    }'>
+      }'>
 `;
 
     views.element("driverEditfirstName").innerHTML = firstName;
     views.element("driverEditlastName").innerHTML = lastName;
     views.element("driverEditphoneNumber").innerHTML = phone;
   },
-  editDriver: function() {
+  editDriver: function () {
     project.removeError();
     project.showSmallBusy();
     var editData = {
@@ -90,26 +91,26 @@ var driver = {
       phoneNumber: views.element("editdriverphone").value,
       referenceNumber: events.selected.referenceNumber
     };
-    console.log(events.selectedid);
+
     axios
       .put(app.API + `api/drivers/${events.selectedid}`, editData, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
-      .then(function(response) {
+      .then(function (response) {
         project.hideSmallBusy();
-        console.log(response);
+
         $("#editdrivermodal").modal("hide");
         driver.fetchDrivers();
       })
-      .catch(function(error) {
+      .catch(function (error) {
         project.hideSmallBusy();
         project.showError(error.response.data.message);
-        console.log(error);
+
       });
   },
-  createDriver: function() {
+  createDriver: function () {
     $("#drivermodal").modal("show");
     var fname = views.element("driverfirstName").value;
     var lname = views.element("driverlastName").value;
@@ -136,25 +137,25 @@ var driver = {
           Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
-      .then(function(response) {
+      .then(function (response) {
         project.hideSmallBusy();
-        console.log(response);
+
         $("#drivermodal").modal("hide");
         driver.fetchDrivers();
       })
-      .catch(function(error) {
+      .catch(function (error) {
         project.hideSmallBusy();
         project.showError(error.response.data.message);
-        console.log(error);
+
       });
   },
-  showdriverdeleteModal: function(target) {
+  showdriverdeleteModal: function (target) {
     $("#deletedrivermodal").modal("show");
     var id = target.getAttribute("data-id");
-    console.log(id);
+
     events.selectedid = id;
   },
-  deleteDriver: function() {
+  deleteDriver: function () {
     project.showSmallBusy();
     axios
       .delete(app.API + `api/drivers/${events.selectedid}`, {
@@ -162,16 +163,16 @@ var driver = {
           Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
-      .then(function(response) {
+      .then(function (response) {
         project.hideSmallBusy();
-        console.log(response);
+
         $("#deletedrivermodal").modal("hide");
         driver.fetchDrivers();
       })
-      .catch(function(error) {
+      .catch(function (error) {
         project.hideSmallBusy();
         project.showError(error.response.data.message);
-        console.log(error);
+
       });
   }
 };

@@ -6193,6 +6193,12 @@ input.app-search-input:-ms-input-placeholder {
   right: 0;
 }
 
+.table-link{
+  color : #007bb6;
+  text-decoration : underline;
+  cursor: pointer;
+}
+
 /*
 Template Name: Abstack - Bootstrap 4 Web App kit
 Author: CoderThemes

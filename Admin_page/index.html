@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <!-- <link rel="shortcut icon" href="assets/images/favicon.ico"> -->
 
     <!--Morris Chart CSS -->
     <link rel="stylesheet" href="assets/morris/morris.css">
@@ -79,10 +79,10 @@
                             <!-- End mobile menu toggle-->
                         </li>
                         <li class="hide-phone">
-                            <form class="app-search">
+                            <!-- <form class="app-search">
                                 <input type="text" placeholder="Search..." class="form-control">
                                 <button type="submit"><i class="fa fa-search"></i></button>
-                            </form>
+                            </form> -->
                         </li>
                         <li>
                         </li>
@@ -323,7 +323,14 @@
                 <!-- Page-Title -->
                 <div class="row">
                     <div class="col-sm-12">
+                        <div class="btn-group pull-right m-t-20">
+                            <button type="button" class="btn btn-primary" 
+                                onclick='order.exportOrderDataDelivery({ filename: "vendee-export-delivery-" + new Date().getTime() });'>
+                                <i class="fa fa-file-export"></i> Export : Orders for Delivery
+                            </button>
+                        </div>
                         <h4 class="page-title">Orders</h4>
+
                     </div>
                 </div>
                 <!-- end page title end breadcrumb -->
@@ -333,21 +340,29 @@
                     <div class="col-12 mx-auto">
                         <div class="card-box">
 
+
                             <h4 class="header-title mt-0 m-b-30">Orders List</h4>
+                            <!-- 
+                            <button onclick="order.exportDeliveryOrders()" class="btn btn-custom btn-bordred btn-block waves-effect waves-light"
+                                type="submit"> Export : Orders for Delivery</button> -->
+
+                            <!-- <a href='#' onclick='order.exportOrderDataDelivery({ filename: "vendee-delivery-" + new Date().getTime() });'>Download CSV</a> -->
+
 
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>SN</th>
-                                            <th>Product Name</th>
-                                            <th>Quantity</th>
-                                            <th>Shopper Reference Number </th>
+                                            <!-- <th>Product Name</th> -->
+                                            <!-- <th>Quantity</th> -->
+                                            <th>Parcel ID</th>
                                             <th>Customer Name</th>
+                                            <th>Phonenumber </th>
+                                            <th>Address </th>
+                                            <th>Shipping Method</th>
+                                            <th>Driver Ref Number</th>
                                             <th>Order Status </th>
-                                            <th>Phone Number </th>
-                                            <th>Email </th>
-                                            <th>Driver Reference Number</th>
                                             <td>Action</td>
                                         </tr>
                                     </thead>
@@ -428,6 +443,7 @@
                                     <thead>
                                         <tr>
                                             <th>SN</th>
+                                            <th>Driver Reference Number</th>
                                             <th>First Name</th>
                                             <th>Last Name</th>
                                             <th>Phone Number</th>
@@ -470,6 +486,7 @@
                                     <thead>
                                         <tr>
                                             <th>SN</th>
+                                            <th>Shopper Ref. Number</th>
                                             <th>First Name</th>
                                             <th>Last Name</th>
                                             <th>Phone Number</th>
@@ -618,31 +635,6 @@
                                     <div id='merchantFormAddress' class="form-group col-md-12">
                                     </div>
                                 </div>
-
-                                <!--<div class="form-group col-md-12">
-                                    <label for="marchantstate">States</label>
-                                    <select id="marchantstate" class="form-control">
-                                        <option selected>Choose...</option>
-                                        <option>Lagos</option>
-                                        <option>Abuja</option>
-                                        <option>Port Harcourt</option>
-                                        <option>Kano</option>
-                                        <option>Imo</option>
-                                        <option>Delta</option>
-                                    </select>
-                                </div>-->
-                                <!--<div class="form-group col-md-12">
-                                    <label for="marchantcity">City</label>
-                                    <select id="marchantcity" class="form-control">
-                                        <option selected>Choose...</option>
-                                        <option>Yaba</option>
-                                        <option>Surulere</option>
-                                        <option>Ajah</option>
-                                        <option>Lekki</option>
-                                        <option>Marryland</option>
-                                        <option>Ikeja</option>
-                                    </select>
-                                </div>-->
                                 <button onclick="merchant.editMerchant()" class="btn btn-success incButton"><i class="fa fa-edit"></i>
                                     Done
                                 </button>
@@ -746,7 +738,36 @@
                 </div>
             </div>
         </div>
-        <!--Ends Courier modal-->
+        <div class="modal fade" id="orderDetailsModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="editor-title">Order Details</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th>Product Name</th>
+                                        <th>Quantity </th>
+                                    </tr>
+                                </thead>
+                                <tbody id='orderProductsTable'>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Ends Order modal-->
         <!--Courier modal-->
         <div class="modal fade" id="couriermodal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -1210,7 +1231,7 @@
         </div>
         <!--Staff modal ends here-->
         <!-- Footer -->
-        <footer class="footer">
+        <!-- <footer class="footer">
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center">
@@ -1218,7 +1239,7 @@
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer> -->
         <!-- End Footer -->
 
 
@@ -1234,14 +1255,16 @@
         <!--[if IE]>
         <script type="text/javascript" src="assets/plugins/jquery-knob/excanvas.js"></script>
         <![endif]-->
-        <script src="assets/plugins/jquery-knob/jquery.knob.js"></script>
+        <!-- <script src="assets/plugins/jquery-knob/jquery.knob.js"></script> -->
 
         <!--Morris Chart-->
         <script src="assets/morris/morris.min.js"></script>
-        <script src="assets/raphael/raphael-min.js"></script>
+        <!-- <script src="assets/raphael/raphael-min.js"></script> -->
 
         <!-- Dashboard init -->
         <script src="assets/pages/jquery.dashboard.js"></script>
+
+
 
 
         <!-- App js -->
@@ -1289,6 +1312,9 @@
                     $(this).removeClass('hover');
                 }
             );</script>
+
+        <!-- Array to Excel converter -->
+        <!-- <script src="assets/js/xls-export.js"></script> -->
 
 </body>
 
